@@ -40,7 +40,6 @@ namespace GraphqlClient.TypedClients
             where T : class
         {
             if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-            if (string.IsNullOrEmpty(url)) throw new ArgumentException(nameof(url));
 
             var request = this.AddHttpRequestMessage(HttpMethod.Get, query, url);
             var response = await this.SendAsync<T>(request, CancellationToken.None).ConfigureAwait(false);
@@ -60,7 +59,6 @@ namespace GraphqlClient.TypedClients
             where T : class
         {
             if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-            if (string.IsNullOrEmpty(url)) throw new ArgumentException(nameof(url));
 
             if (cancellationToken.IsCancellationRequested)
             {
@@ -83,7 +81,6 @@ namespace GraphqlClient.TypedClients
             where T : class
         {
             if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-            //if (string.IsNullOrEmpty(url)) throw new ArgumentException(nameof(url));
 
             var request = this.AddHttpRequestMessage(HttpMethod.Post, query, url);
             var response = await this.SendAsync<T>(request, CancellationToken.None).ConfigureAwait(false);
@@ -103,7 +100,6 @@ namespace GraphqlClient.TypedClients
             where T : class
         {
             if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-            if (string.IsNullOrEmpty(url)) throw new ArgumentException(nameof(url));
 
             if (cancellationToken.IsCancellationRequested)
             {
@@ -126,7 +122,6 @@ namespace GraphqlClient.TypedClients
             where T : class
         {
             if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-            if (string.IsNullOrEmpty(url)) throw new ArgumentException(nameof(url));
 
             var request = this.AddHttpRequestMessage(HttpMethod.Put, query, url);
             var response = await this.SendAsync<T>(request, CancellationToken.None).ConfigureAwait(false);
@@ -146,7 +141,6 @@ namespace GraphqlClient.TypedClients
             where T : class
         {
             if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-            if (string.IsNullOrEmpty(url)) throw new ArgumentException(nameof(url));
 
             if (cancellationToken.IsCancellationRequested)
             {
@@ -169,7 +163,6 @@ namespace GraphqlClient.TypedClients
             where T : class
         {
             if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-            if (string.IsNullOrEmpty(url)) throw new ArgumentException(nameof(url));
 
             var request = this.AddHttpRequestMessage(HttpMethod.Delete, query, url);
             var response = await this.SendAsync<T>(request, CancellationToken.None).ConfigureAwait(false);
@@ -189,7 +182,6 @@ namespace GraphqlClient.TypedClients
             where T : class
         {
             if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-            if (string.IsNullOrEmpty(url)) throw new ArgumentException(nameof(url));
 
             if (cancellationToken.IsCancellationRequested)
             {

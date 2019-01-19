@@ -91,7 +91,7 @@ namespace GraphqlClient.TypedClients
         /// <returns>The new http request message object</returns>
         public HttpRequestMessage AddHttpRequestMessage(HttpMethod httpMethod, string query, string url)
         {
-            return new HttpRequestMessage(HttpMethod.Post, url)
+            return new HttpRequestMessage(httpMethod, url)
             {
                 Content = new StringContent(query, Encoding.UTF8, MediaType)
             };
