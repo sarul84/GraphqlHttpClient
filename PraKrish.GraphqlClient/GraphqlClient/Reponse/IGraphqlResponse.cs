@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="IGraphqlResponse.cs" company="PraKrish Technologies">
-//     Copyright (c) 2019 PraKrish Technologies. All rights reserved.
+// <copyright file="IGraphqlResponse.cs" company="Prakrishta Technologies">
+//     Copyright (c) 2019 Prakrishta Technologies. All rights reserved.
 // </copyright>
 // <author>Arul Sengottaiyan</author>
 // <date>01/17/2019</date>

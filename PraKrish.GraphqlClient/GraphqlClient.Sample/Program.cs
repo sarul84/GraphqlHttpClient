@@ -26,7 +26,14 @@ namespace GraphqlClient.Sample
             var queryString = "{\"query\":{countries {code,currency}}}";
             var response = await client.PostAsync<dynamic>(queryString, "");
 
-            Console.WriteLine("Hello World!");
+            if(response?.HasError == true)
+            {
+                Console.WriteLine(response?.Errors?.GetEnumerator()?.Current.Message);
+            }
+            else
+            {
+                Console.WriteLine(response?.Data);
+            }
         }
     }
 }

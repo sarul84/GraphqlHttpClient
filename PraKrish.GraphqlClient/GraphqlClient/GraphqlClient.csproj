@@ -2,6 +2,17 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Prakrishtha.GraphqlHttpClient</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Prakrishta Technologies</Authors>
+    <Company>Prakrishta Technologies</Company>
+    <Product>GraphqlHttpClient</Product>
+    <Description>Client for consuming graphql http services</Description>
+    <Copyright>Copyright © Prakrishta Technologies 2017</Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/sarul84/GraphqlHttpClient</RepositoryUrl>
+    <RepositoryType>Public</RepositoryType>
+    <PackageTags>C#, NET, Net Core, Graphql, Graphql-client, Graphql client</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
