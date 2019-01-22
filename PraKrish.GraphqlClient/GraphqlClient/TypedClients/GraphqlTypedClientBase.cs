@@ -117,6 +117,7 @@ namespace GraphqlClient.TypedClients
                 {
                     Data = default(TEntity),
                     StatusCode = response.StatusCode,
+                    IsSuccessCode = response.IsSuccessStatusCode,
                     Errors = new Collection<GraphqlError>
                     {
                         new GraphqlError
@@ -132,11 +133,12 @@ namespace GraphqlClient.TypedClients
 
             var jsonString = await (response?.Content?.ReadAsStringAsync()).ConfigureAwait(false);
 
-            if (string.IsNullOrEmpty(jsonString))
+            if (!string.IsNullOrEmpty(jsonString))
             {
-                var result = JsonConvert.DeserializeObject<IGraphqlResponse<TEntity>>(jsonString);
+                var result = JsonConvert.DeserializeObject<GraphqlResponse<TEntity>>(jsonString);
                 stopwatch.Stop();
                 result.StatusCode = response.StatusCode;
+                result.IsSuccessCode = response.IsSuccessStatusCode;
                 result.ElapsedTime = stopwatch.ElapsedMilliseconds;
                 return result;
             }

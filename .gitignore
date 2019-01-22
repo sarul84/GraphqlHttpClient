@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/PraKrish.GraphqlClient/GraphqlClient/obj
+/PraKrish.GraphqlClient/GraphqlClient.Sample/obj
+/PraKrish.GraphqlClient/.vs/PraKrish.GraphqlClient/v15
+/PraKrish.GraphqlClient/GraphqlClient.Sample/bin/Debug/netcoreapp2.2
+/PraKrish.GraphqlClient/GraphqlClient/bin/Debug/netstandard2.0

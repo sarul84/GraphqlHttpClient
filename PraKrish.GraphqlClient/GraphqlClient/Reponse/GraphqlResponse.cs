@@ -51,8 +51,8 @@ namespace GraphqlClient.Reponse
         public bool HasError => Errors?.Any() ?? false;
 
         /// <summary>
-        /// Gets status code flag, returns true if the http status code between 200 and 300
+        /// Gets or sets status code flag, returns true if the http status code between 200 and 300
         /// </summary>
-        public bool IsSuccessCode => (int)StatusCode >= 200 && (int)StatusCode < 300;
+        public bool IsSuccessCode { get; set; }
     }
 }
