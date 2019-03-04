@@ -3,9 +3,8 @@ Very simple Graphql http client for .net by taking advantage of IHttpClientFacto
 
 Build Status:
 
-```
 https://ci.appveyor.com/api/projects/status/u46ewl3ymt92poo7/branch/master?svg=true
-```
+
 
 Nuget package installation:
 ```
