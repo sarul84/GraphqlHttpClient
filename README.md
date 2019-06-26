@@ -11,7 +11,47 @@ Nuget package installation:
 Install-Package Prakrishtha.GraphqlHttpClient -Version 1.0.0
 ```
 
-The response object has status code, response time, error message (if any) properties which will be helpful when you interpret the result.
+The response object has Data, status code, response time, error message (if any) properties which will be helpful when you interpret the result.
+
+```
+public interface IGraphqlResponse<TEntity> where TEntity : class
+{
+        /// <summary>
+        /// Gets or sets graphql response data
+        /// </summary>
+        TEntity Data { get; set; }
+
+        /// <summary>
+        /// Gets or sets the error occured on execution of the query
+        /// </summary>
+        IEnumerable<GraphqlError> Errors { get; set; }
+
+        /// <summary>
+        /// Gets has data flag, returns true if the response has data
+        /// </summary>
+        bool HasData { get; }
+
+        /// <summary>
+        /// Gets has error flag, returns true if the response has any error
+        /// </summary>
+        bool HasError { get; }
+
+        /// <summary>
+        /// Gets status code flag, returns true if the http status code between 200 and 300
+        /// </summary>
+        bool IsSuccessCode { get; }
+
+        /// <summary>
+        /// Gets or sets the http status code
+        /// </summary>
+        HttpStatusCode StatusCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the time taken by operation in milli seconds
+        /// </summary>
+        long ElapsedTime { get; set; }
+}
+```
 
 There is an extension method available to add Graphql client with inbuilt IoC container.
 
