@@ -10,13 +10,12 @@
 namespace GraphqlClient.TypedClients
 {
     using GraphqlClient.Reponse;
-    using Newtonsoft.Json;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Diagnostics;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Text;
+    using System.Text.Json;
     using System.Threading;
     using System.Threading.Tasks;
 
@@ -104,46 +103,47 @@ namespace GraphqlClient.TypedClients
         /// <param name="httpRequestMessage">The http request message object</param>
         /// <returns>The graphql response object</returns>
         public async Task<IGraphqlResponse<TEntity>> SendAsync<TEntity>(HttpRequestMessage httpRequestMessage,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = default)
             where TEntity : class
         {
-            var stopwatch = new Stopwatch();
-            stopwatch.Start();
-            var response = await this.Client.SendAsync(httpRequestMessage, cancellationToken).ConfigureAwait(false);
+            var start = Stopwatch.GetTimestamp();
+
+            var response = await this.Client.SendAsync(httpRequestMessage, cancellationToken)
+                                        .ConfigureAwait(false);
+
+            var content = await response.Content.ReadAsStringAsync(cancellationToken)
+                                            .ConfigureAwait(false);
+
+            var elapsedMs = (Stopwatch.GetTimestamp() - start) * 1000.0 / Stopwatch.Frequency;
+
+            var result = new GraphqlResponse<TEntity>
+            {
+                Data = default,
+                StatusCode = response.StatusCode,
+                IsSuccessCode = response.IsSuccessStatusCode,
+                Errors = [],
+                ElapsedTime = (long)elapsedMs
+            };
+
             if (response?.IsSuccessStatusCode == false)
             {
-                var errorResponse = await (response?.Content?.ReadAsStringAsync()).ConfigureAwait(false);
-                var result = new GraphqlResponse<TEntity>()
-                {
-                    Data = default(TEntity),
-                    StatusCode = response.StatusCode,
-                    IsSuccessCode = response.IsSuccessStatusCode,
-                    Errors = new Collection<GraphqlError>
+                result.Errors =
+                [
+                    new GraphqlError
                     {
-                        new GraphqlError
-                        {
-                            Message = errorResponse
-                        }
+                        Message = content
                     }
-                };
-                stopwatch.Stop();
-                result.ElapsedTime = stopwatch.ElapsedMilliseconds;
+                ];
+
                 return result;
             }
 
-            var jsonString = await (response?.Content?.ReadAsStringAsync()).ConfigureAwait(false);
-
-            if (!string.IsNullOrEmpty(jsonString))
+            if (!string.IsNullOrWhiteSpace(content))
             {
-                var result = JsonConvert.DeserializeObject<GraphqlResponse<TEntity>>(jsonString);
-                stopwatch.Stop();
-                result.StatusCode = response.StatusCode;
-                result.IsSuccessCode = response.IsSuccessStatusCode;
-                result.ElapsedTime = stopwatch.ElapsedMilliseconds;
-                return result;
+                result.Data = JsonSerializer.Deserialize<TEntity>(content);
             }
 
-            return null;
+            return result;
         }
 
         /// <summary>

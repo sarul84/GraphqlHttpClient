@@ -30,24 +30,6 @@ namespace GraphqlClient.TypedClients
         }
 
         /// <summary>
-        /// Send a POST request to the specified Uri
-        /// </summary>
-        /// <typeparam name="T">The type to which response would be deserialized</typeparam>
-        /// <param name="query">Graphql query</param>
-        /// <param name="url">Graphql api url</param>
-        /// <returns>The graphql response object</returns>
-        public async Task<IGraphqlResponse<T>> PostAsync<T>(string query, string url)
-            where T : class
-        {
-            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-            if (string.IsNullOrEmpty(url)) throw new ArgumentException(nameof(url));
-
-            var request = this.AddHttpRequestMessage(HttpMethod.Post, query, url);
-            var response = await this.SendAsync<T>(request, CancellationToken.None).ConfigureAwait(false);
-            return response;
-        }
-
-        /// <summary>
         /// Send a POST request to the specified Uri with cancellation token
         /// </summary>
         /// <typeparam name="T">The type to which response would be deserialized</typeparam>
@@ -56,16 +38,12 @@ namespace GraphqlClient.TypedClients
         /// <param name="cancellationToken">The cancellation token</param>
         /// <returns>The graphql response object</returns>
         public async Task<IGraphqlResponse<T>> PostAsync<T>(string query, string url,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = default)
             where T : class
         {
-            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-            if (string.IsNullOrEmpty(url)) throw new ArgumentException(nameof(url));
-
-            if(cancellationToken.IsCancellationRequested)
-            {
-                throw new OperationCanceledException();
-            }
+            ArgumentNullException.ThrowIfNull(query, nameof(query));
+            ArgumentException.ThrowIfNullOrEmpty(url, nameof(url));
+            cancellationToken.ThrowIfCancellationRequested();
 
             var request = this.AddHttpRequestMessage(HttpMethod.Post, query, url);
             var response = await this.SendAsync<T>(request, cancellationToken).ConfigureAwait(false);

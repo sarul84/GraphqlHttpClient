@@ -23,15 +23,19 @@ namespace GraphqlClient.Sample
 
             var client = serviceProvider.GetService<GraphqlHttpTypedClient>();
 
-            var queryString = "{\"query\":{countries {code,currency}}}";
+            var queryString = "{ \"query\": \"query {\\n  countries\\n  {\\n    code,\\n    currency\\n  }\\n}\\n\" }";
             var response = await client.PostAsync<dynamic>(queryString, "");
 
             if(response?.HasError == true)
             {
-                Console.WriteLine(response?.Errors?.GetEnumerator()?.Current.Message);
+                foreach (var error in response.Errors)
+                {
+                    Console.WriteLine(error.Message);
+                }
             }
             else
             {
+                Console.WriteLine("Elapsed Time in milli seconds, {0}", response?.ElapsedTime);
                 Console.WriteLine(response?.Data);
             }
         }

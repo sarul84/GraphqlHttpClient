@@ -30,23 +30,6 @@ namespace GraphqlClient.TypedClients
         }
 
         /// <summary>
-        /// Send a GET request to the specified Uri
-        /// </summary>
-        /// <typeparam name="T">The type to which response would be deserialized</typeparam>
-        /// <param name="query">Graphql query</param>
-        /// <param name="url">Graphql api url</param>
-        /// <returns>The graphql response object</returns>
-        public async Task<IGraphqlResponse<T>> GetAsync<T>(string query, string url)
-            where T : class
-        {
-            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-
-            var request = this.AddHttpRequestMessage(HttpMethod.Get, query, url);
-            var response = await this.SendAsync<T>(request, CancellationToken.None).ConfigureAwait(false);
-            return response;
-        }
-
-        /// <summary>
         /// Send a GET request to the specified Uri with cancellation token
         /// </summary>
         /// <typeparam name="T">The type to which response would be deserialized</typeparam>
@@ -55,35 +38,14 @@ namespace GraphqlClient.TypedClients
         /// <param name="cancellationToken">The cancellation token</param>
         /// <returns>The graphql response object</returns>
         public async Task<IGraphqlResponse<T>> GetAsync<T>(string query, string url,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = default)
             where T : class
         {
-            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-
-            if (cancellationToken.IsCancellationRequested)
-            {
-                throw new OperationCanceledException();
-            }
+            ArgumentNullException.ThrowIfNull(query, nameof(query));
+            cancellationToken.ThrowIfCancellationRequested();
 
             var request = this.AddHttpRequestMessage(HttpMethod.Get, query, url);
             var response = await this.SendAsync<T>(request, cancellationToken).ConfigureAwait(false);
-            return response;
-        }
-
-        /// <summary>
-        /// Send a POST request to the specified Uri
-        /// </summary>
-        /// <typeparam name="T">The type to which response would be deserialized</typeparam>
-        /// <param name="query">Graphql query</param>
-        /// <param name="url">Graphql api url</param>
-        /// <returns>The graphql response object</returns>
-        public async Task<IGraphqlResponse<T>> PostAsync<T>(string query, string url)
-            where T : class
-        {
-            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-
-            var request = this.AddHttpRequestMessage(HttpMethod.Post, query, url);
-            var response = await this.SendAsync<T>(request, CancellationToken.None).ConfigureAwait(false);
             return response;
         }
 
@@ -96,35 +58,14 @@ namespace GraphqlClient.TypedClients
         /// <param name="cancellationToken">The cancellation token</param>
         /// <returns>The graphql response object</returns>
         public async Task<IGraphqlResponse<T>> PostAsync<T>(string query, string url,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = default)
             where T : class
         {
-            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-
-            if (cancellationToken.IsCancellationRequested)
-            {
-                throw new OperationCanceledException();
-            }
+            ArgumentNullException.ThrowIfNull(query, nameof(query));
+            cancellationToken.ThrowIfCancellationRequested();
 
             var request = this.AddHttpRequestMessage(HttpMethod.Post, query, url);
             var response = await this.SendAsync<T>(request, cancellationToken).ConfigureAwait(false);
-            return response;
-        }
-
-        /// <summary>
-        /// Send a PUT request to the specified Uri
-        /// </summary>
-        /// <typeparam name="T">The type to which response would be deserialized</typeparam>
-        /// <param name="query">Graphql query</param>
-        /// <param name="url">Graphql api url</param>
-        /// <returns>The graphql response object</returns>
-        public async Task<IGraphqlResponse<T>> PutAsync<T>(string query, string url)
-            where T : class
-        {
-            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-
-            var request = this.AddHttpRequestMessage(HttpMethod.Put, query, url);
-            var response = await this.SendAsync<T>(request, CancellationToken.None).ConfigureAwait(false);
             return response;
         }
 
@@ -137,35 +78,14 @@ namespace GraphqlClient.TypedClients
         /// <param name="cancellationToken">The cancellation token</param>
         /// <returns>The graphql response object</returns>
         public async Task<IGraphqlResponse<T>> PutAsync<T>(string query, string url,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = default)
             where T : class
         {
-            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-
-            if (cancellationToken.IsCancellationRequested)
-            {
-                throw new OperationCanceledException();
-            }
+            ArgumentNullException.ThrowIfNull(query, nameof(query));
+            cancellationToken.ThrowIfCancellationRequested();
 
             var request = this.AddHttpRequestMessage(HttpMethod.Put, query, url);
             var response = await this.SendAsync<T>(request, cancellationToken).ConfigureAwait(false);
-            return response;
-        }
-
-        /// <summary>
-        /// Send a DELETE request to the specified Uri
-        /// </summary>
-        /// <typeparam name="T">The type to which response would be deserialized</typeparam>
-        /// <param name="query">Graphql query</param>
-        /// <param name="url">Graphql api url</param>
-        /// <returns>The graphql response object</returns>
-        public async Task<IGraphqlResponse<T>> DeleteAsync<T>(string query, string url)
-            where T : class
-        {
-            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-
-            var request = this.AddHttpRequestMessage(HttpMethod.Delete, query, url);
-            var response = await this.SendAsync<T>(request, CancellationToken.None).ConfigureAwait(false);
             return response;
         }
 
@@ -178,15 +98,11 @@ namespace GraphqlClient.TypedClients
         /// <param name="cancellationToken">The cancellation token</param>
         /// <returns>The graphql response object</returns>
         public async Task<IGraphqlResponse<T>> DeleteAsync<T>(string query, string url,
-            CancellationToken cancellationToken)
+            CancellationToken cancellationToken = default)
             where T : class
         {
-            if (string.IsNullOrEmpty(query)) throw new ArgumentNullException(nameof(query));
-
-            if (cancellationToken.IsCancellationRequested)
-            {
-                throw new OperationCanceledException();
-            }
+            ArgumentNullException.ThrowIfNull(query, nameof(query));
+            cancellationToken.ThrowIfCancellationRequested();
 
             var request = this.AddHttpRequestMessage(HttpMethod.Delete, query, url);
             var response = await this.SendAsync<T>(request, cancellationToken).ConfigureAwait(false);
