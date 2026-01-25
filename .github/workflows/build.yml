@@ -31,7 +31,7 @@ jobs:
       run: ls -R 
 
     - name: Restore dependencies
-      run: dotnet restore src/GraphqlHttpClient/GraphqlHttpClient/GraphqlHttpClient.csproj
+      run: dotnet restore GraphqlClient/GraphqlHttpClient.csproj
 
     - name: Build
       run: dotnet build ..\GraphqlHttpClient\GraphqlHttpClient --configuration Release --no-restore
