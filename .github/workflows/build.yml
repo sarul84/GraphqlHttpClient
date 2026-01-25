@@ -28,7 +28,7 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore ..\GraphqlHttpClient\GraphqlHttpClient
+      run: dotnet restore ./GraphqlHttpClient/GraphqlHttpClient.csproj
 
     - name: Build
       run: dotnet build ..\GraphqlHttpClient\GraphqlHttpClient --configuration Release --no-restore
